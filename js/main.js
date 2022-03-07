@@ -1,27 +1,29 @@
 document.getElementById("play").addEventListener("click",
 function(){
     nuovaPartita();
-   /*  creaGriglia(); */
+
     }
 )
 
 function nuovaPartita(){
-    document.getElementById("griglia").innerHTML ="";               // si resetta tutto       //parent
+    document.querySelector("#griglia").innerHTML = "";               // si resetta tutto       //parent
     const livelli = parseInt(document.getElementById("livelli").value);
     
+
     let celleRow;
     let numeroCelle;
     let punti = 0;
-    switch (livelli){
+
+    switch (livelli){                                           // sai utilizza in questo caso per sostituire (if)
         case 1:
-        default:
+        /* default: */
             numeroCelle =100;
             celleRow =10;
             break;
         case 2:
-                numeroCelle =81;
-                celleRow =9;
-                break;  
+            numeroCelle =81;
+            celleRow =9;
+            break;  
         case 3:
 
             numeroCelle =49;
@@ -29,13 +31,13 @@ function nuovaPartita(){
             break;
     }
 
-    
+    //bombe lista
     const bombs = listaBombe(16, numeroCelle);
     console.log(bombs)
-/* celleRow = Math.sqrt(numeroCelle) */
-for(let i = 1; i <= numeroCelle; i++){
-    const caselle = creaGriglia(i, celleRow)
 
+for(let i = 1; i <= numeroCelle; i++){
+    const caselle = creaGriglia(i);
+    
     caselle.addEventListener("click",function(){
      if ( !bombs.includes (i)){                               // se il numero di bombe non è presente nella lista alloora mi comporto come se nulla fosse
         
@@ -58,7 +60,7 @@ for(let i = 1; i <= numeroCelle; i++){
 
 
 
-function creaGriglia (numero, celleRow){
+function creaGriglia (numero){
     const celle = document.createElement("div");                                                      // mi sono creato un div nella griglia,  a questo div li vado a d assegnare la classe custom
     celle.classList.add("box1")
     
@@ -66,12 +68,7 @@ function creaGriglia (numero, celleRow){
     return celle;                                              
 }
 
-/* function numeriRandom(minValue,maxValue){
-    if(isNaN(parseInt( minValue)) || isNaN(parseInt(maxValue))){
 
-    } 
-    return(Math.floor(Math.random() * ((maxValue + 1) - minValue) + minValue));
-} */
 
 function listaBombe(grenades, numeroCelle){
 const bombs =[];
@@ -83,7 +80,7 @@ return bombs;
 
 
 
-
+//generazione numeri random
 
 function numeriRandom( numberDark,min,max){
     let check = false;
@@ -98,7 +95,8 @@ function numeriRandom( numberDark,min,max){
     }
     return random;
 }
+    // funzione per la visuazlizzazione dei punti
 
-
-function listaPunti(elementId,write){
-    document.getElementById(elementId).innerHTML = write}  
+function listaPunti(elementId, writePoints){
+    document.getElementById(elementId).innerHTML = writePoints;
+}   
