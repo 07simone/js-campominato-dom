@@ -1,0 +1,40 @@
+main{
+    height:  800px;
+    background-color: lightgreen;
+}
+.input-group{
+    height: 20px;
+}
+  
+
+#griglia{
+    margin: 0 auto;
+    width: 500px;
+    height: 500px; 
+    
+}
+ #griglia .box1{
+    border: 2px solid black;
+    width: calc(100% / 10);
+    height:  calc(100% / 10);  
+    cursor: pointer;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}   
+ #gliglia .box1{
+color: white;
+ }
+#griglia .box1.active{
+    background-color:rgb(4, 8, 70);
+    color: white;
+}
+
+
+.clearfix::after{
+    clear: both;
+    display: table;
+    content: "";
+}
