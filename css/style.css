@@ -32,6 +32,11 @@ color: white;
     color: white;
 }
 
+#griglia .box1.active-bomb{
+    background-color:rgb(143, 0, 0);
+    color: white;
+}
+
 
 .clearfix::after{
     clear: both;
