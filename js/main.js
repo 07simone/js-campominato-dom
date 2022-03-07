@@ -101,5 +101,4 @@ function numeriRandom( numberDark,min,max){
 
 
 function listaPunti(elementId,write){
-    document.getElementById(elementId).innerHTML = write;
-}  
+    document.getElementById(elementId).innerHTML = write}  
