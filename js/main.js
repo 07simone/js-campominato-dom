@@ -1,12 +1,13 @@
 document.getElementById("play").addEventListener("click",
 function(){
     nuovaPartita();
-
+    
     }
 )
 
 function nuovaPartita(){
-    document.querySelector("#griglia").innerHTML = "";               // si resetta tutto       //parent
+    document.querySelector("#griglia").innerHTML = ""; // si resetta tutto       //parent
+    let isGameOver = false;              
     const livelli = parseInt(document.getElementById("livelli").value);
     
 
@@ -31,32 +32,45 @@ function nuovaPartita(){
             break;
     }
 
-    //bombe lista
-    const bombs = listaBombe(16, numeroCelle);
+    
+    const bombs = listaBombe(16, numeroCelle);          // mi genero la listab delle bombe da visualizzare (16 bombe)
     console.log(bombs)
 
 for(let i = 1; i <= numeroCelle; i++){
     const caselle = creaGriglia(i);
     
     caselle.addEventListener("click",function(){
-     if ( !bombs.includes (i)){                               // se il numero di bombe non è presente nella lista alloora mi comporto come se nulla fosse
-        
-            this.classList.add("active")
-            punti++
-            listaPunti("punteggio",` il punteggio è${punti}` )
-        
-     } else{ 
-        
+        if(!isGameOver){
+            if ( !bombs.includes (i)){                               // se il numero di bombe non è presente nella lista alloora mi comporto come se nulla fosse
+                this.classList.add("active")
+                punti++
+                listaPunti("punteggio",` il punteggio è${punti}` )
+            
+        } else {
             this.classList.add("active-bomb")
-            listaPunti("punteggio",` hai perso, il tuo punteggio è ${punti}` )
+            listaPunti("punteggio",` il punteggio è${punti}` )
+            checkAndAddClass( "griglia",bombs, "active-bomb")
+            alert("hai perso")
+            isGameOver = true;
+            
         }
-    });
-
-    
-    document.getElementById("griglia").appendChild(caselle);
+    }
+})
+document.getElementById("griglia").appendChild(caselle); 
     }
 }
- 
+
+function checkAndAddClass(parentElementId, bombList, classToAdd){
+    const parent = document.getElementById(parentElementId).children
+    //per ognio quadrato presente lo ciclo
+    for(let i = 0; i < parent.length; i++ ){
+        // se è presente una bomba
+        if( bombList.includes( parseInt(parent[i].innerHTML)) ){
+            //la faccio esplodere
+            parent[i].classList.add(classToAdd)
+        }
+    }
+} 
 
 
 
@@ -73,7 +87,7 @@ function creaGriglia (numero){
 function listaBombe(grenades, numeroCelle){
 const bombs =[];
 for (i = 0; i < grenades; i++){
-    bombs.push(numeriRandom(bombs, 1, numeroCelle));
+    bombs.push(numeriRandom(bombs, 1, numeroCelle));                //minimo 1 e massimo il numero delle celle che vanno aggiunte a bombs
 }
 return bombs;
 }
@@ -81,7 +95,7 @@ return bombs;
 
 
 //generazione numeri random
-
+            
 function numeriRandom( numberDark,min,max){
     let check = false;
     let random;
